@@ -1,0 +1,176 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>HEEJU HOME</title>
+    <style>
+        :root {
+            --main-color: #008080; /* 청록색 */
+            --bg-color: #000;
+            --text-color: #fff;
+            --subtext-color: #ccc;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            font-family: 'Arial', sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start;  /* 위쪽 정렬 */
+            margin: 0;
+            min-height: 100vh;
+            padding-top: 40px;
+        }
+
+        h1 {
+            font-size: 2.5em;
+            color: var(--main-color);
+            margin-bottom: 10px;
+        }
+
+        p {
+            font-size: 1.1em;
+            color: var(--subtext-color);
+            margin-bottom: 30px;
+        }
+
+        .profile-card {
+            background-color: #111;
+            border-radius: 16px;
+            padding: 30px;
+            box-shadow: 0 0 20px rgba(0, 128, 128, 0.3);
+            text-align: center;
+            max-width: 400px;
+            width: 90%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-bottom: 40px;
+        }
+
+        img.profile {
+            width: 180px;
+            height: 180px;
+            border-radius: 50%;
+            border: 3px solid var(--main-color);
+            margin-bottom: 20px;
+        }
+
+        a.button {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 12px 24px;
+            background-color: var(--main-color);
+            color: black;
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: bold;
+            animation: pulse 2s infinite;
+            transition: background-color 0.3s ease;
+        }
+
+        a.button:hover {
+            background-color: #006666;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+
+        /* 달력 및 시간 스타일 */
+        #calendar {
+            background: none;
+            box-shadow: none;
+            padding: 0;
+            width: auto;
+            margin-bottom: 5px;
+            text-align: center;
+            font-size: 2.8em;
+        }
+
+        #calendar .date {
+            font-weight: bold;
+            color: #20c997;
+            white-space: nowrap;
+            margin-bottom: 5px;
+        }
+
+        #calendar .day {
+            font-size: 1.1em;
+            color: var(--subtext-color);
+        }
+
+        #currentTime {
+            font-size: 2em;
+            font-weight: bold;
+            color: #00bfff;
+            margin-bottom: 40px;
+            text-align: center;
+        }
+
+    </style>
+</head>
+<body>
+
+    <h1>HEEJU HOME</h1>
+    <p>파이썬프로그래밍및응용 과제</p>
+
+    <!-- 프로필 카드 -->
+    <div class="profile-card">
+        <img src="{% static 'profile.jpg' %}" alt="김희주의 프로필 이미지" class="profile">
+        <a class="button" href="{% url 'about' %}">내 소개 보기 →</a>
+    </div>
+
+    <!-- 오늘 날짜 달력 -->
+    <div id="calendar">
+        <div class="date" id="todayDate"></div>
+        <div class="day" id="todayDay"></div>
+    </div>
+
+    <!-- 현재 시간 -->
+    <div id="currentTime"></div>
+
+    <script>
+        // 오늘 날짜 표시 함수
+        function showToday() {
+            const today = new Date();
+            const year = today.getFullYear();
+            const month = today.getMonth() + 1; // 0부터 시작하므로 +1
+            const date = today.getDate();
+
+            const days = ['일요일', '월요일', '화요일', '수요일', '목요일', '금요일', '토요일'];
+            const dayName = days[today.getDay()];
+
+            document.getElementById('todayDate').textContent = `${year}년 ${month}월 ${date}일`;
+            document.getElementById('todayDay').textContent = dayName;
+        }
+
+        // 현재 시간 실시간 표시 함수
+        function showTime() {
+            const now = new Date();
+            let h = now.getHours();
+            let m = now.getMinutes();
+            let s = now.getSeconds();
+
+            // 두 자리 숫자 포맷팅
+            h = h < 10 ? '0' + h : h;
+            m = m < 10 ? '0' + m : m;
+            s = s < 10 ? '0' + s : s;
+
+            const timeStr = `${h}:${m}:${s}`;
+            document.getElementById('currentTime').textContent = timeStr;
+        }
+
+        // 초기 실행
+        showToday();
+        showTime();
+        setInterval(showTime, 1000);  // 1초마다 시간 갱신
+    </script>
+
+</body>
+</html>
