@@ -30,6 +30,7 @@ GitHub 주소: https://github.com/heeju-Git/Repository
 - 회원가입, 로그인 기능 제외  
 - 메인 페이지에 프로필 이미지, 날짜 및 시간 표시  
 - 자기소개 페이지에 유튜브 음악 재생 버튼 포함
-
-감사합니다.
+- Python 3.11 이상 권장
+- Django 5.2 버전 사용
+- window 환경에서 제작하였습니다.
 
